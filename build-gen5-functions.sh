@@ -271,6 +271,30 @@ function build-gen5-fts-image() {
   echo "Prepare qclinux build gen5-fts image done"
 }
 
+build-gen5-debug-image() {
+  #This build entry is used for LEQCLinux1.0 yocto now
+  echo "==== Function: $FUNCNAME (${FUNCNAME[@]})"
+
+  build-gen5-image
+  if [ "$?" != "0" ]; then
+    echo "==== Error run 'build-gen5-image'. (${FUNCNAME[@]})"
+    return 1
+  fi
+  mkdir -p ../poky/build/tmp-glibc/deploy/images/gen5-automotive
+  mv tmp-glibc/deploy/images/gen5-automotive/* ../poky/build/tmp-glibc/deploy/images/gen5-automotive
+  export MACHINE_IMAGE=`readlink ../poky/build/tmp-glibc/deploy/images/gen5-automotive/machine-image-gen5.ext4`
+  mv ../poky/build/tmp-glibc/deploy/images/gen5-automotive/$MACHINE_IMAGE ../poky/build/tmp-glibc/deploy/images/gen5-automotive/machine-image-gen5.ext4
+  mkdir -p ../poky/build/tmp-glibc/prebuilt_debug
+  cp -r tmp-glibc/prebuilt_debug/* ../poky/build/tmp-glibc/prebuilt_debug
+  mkdir -p ../poky/build/tmp-glibc/sysroots-components
+  cp -r tmp-glibc/sysroots-components/* ../poky/build/tmp-glibc/sysroots-components
+  mkdir -p ../poky/build/tmp-glibc/deploy/ipk/gen5-automotive
+  cp tmp-glibc/deploy/ipk/*/*-dbg*.ipk ../poky/build/tmp-glibc/deploy/ipk/gen5-automotive/
+  echo "Prepare build-gen5-image done"
+
+}
+
+
 build-all-gen5-image() {
   #This build entry is used for LEQCLinux1.0 yocto now
   echo "==== Function: $FUNCNAME (${FUNCNAME[@]})"
