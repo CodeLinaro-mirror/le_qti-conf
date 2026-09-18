@@ -40,7 +40,10 @@ BBMASK += ".*/meta-qti-bsp/recipes-devtools/dumpkey/dumpkey-native_1\.0\.bb$"
 BBMASK += ".*/meta-qti-bsp/recipes-kernel/dtc/dtc-android-build_1\.4\.4\.bb$"
 
 BBMASK += ".*/meta-qti-bsp/recipes-kernel/dtc/dtc-android-build_5\.15\.bb$"
-#BBMASK += ".*/meta-qti-bsp/recipes-kernel/edk2/edk2_4\.0\.bb$"
+# qti-console-image directly depends on edk2. Keep both the base recipe and
+# the BSP property-layer append visible, matching the ppollai working build.
+# BBMASK += ".*/meta-qti-bsp/recipes-kernel/edk2/.*"
+# BBMASK += ".*/meta-qti-bsp-prop/recipes-kernel/edk2/.*"
 BBMASK += ".*/meta-qti-bsp/recipes-kernel/mod-blacklist/mod-blacklist_1\.0\.bb$"
 
 # Legacy / unavailable toolchain, bootloader, and sensing recipes
@@ -355,11 +358,11 @@ BBMASK += ".*/meta-qti-bsp/meta-qti-customizations/qti-bsp-prop/recipes-multimed
 # Mask unavailable recipes individually
 BBMASK += "meta-qti-bsp/recipes-blast/leproperties/leproperties_2.0.bb"
 BBMASK += "meta-qti-bsp/recipes-blast/libcrypthelper-mediameta/libcrypthelper-mediameta_2.0.bb"
-BBMASK += "meta-qti-bsp/recipes-blast/fsmgr/fsmgr_2.0.bb"
-BBMASK += "meta-qti-bsp/recipes-blast/libmincrypt/libmincrypt-native_2.0.bb"
-BBMASK += "meta-qti-bsp/recipes-blast/libbase/libbase_2.0.bb"
+#BBMASK += "meta-qti-bsp/recipes-blast/fsmgr/fsmgr_2.0.bb"
+#BBMASK += "meta-qti-bsp/recipes-blast/libmincrypt/libmincrypt-native_2.0.bb"
+#BBMASK += "meta-qti-bsp/recipes-blast/libbase/libbase_2.0.bb"
 BBMASK += "meta-qti-bsp/recipes-blast/libion/libion_2.0.bb"
-BBMASK += "meta-qti-bsp/recipes-blast/libmincrypt/libmincrypt_2.0.bb"
+#BBMASK += "meta-qti-bsp/recipes-blast/libmincrypt/libmincrypt_2.0.bb"
 BBMASK += "meta-qti-bsp/recipes-blast/libpagemap/libpagemap_2.0.bb"
 BBMASK += "meta-qti-bsp/recipes-blast/libsysutils/libsysutils_2.0.bb"
 BBMASK += "meta-qti-bsp/recipes-blast/logd/logd_2.0.bb"
@@ -367,11 +370,57 @@ BBMASK += "meta-qti-bsp/recipes-blast/post-boot/post-boot_2.0.bb"
 BBMASK += "meta-qti-bsp/recipes-blast/logcat/logcat_2.0.bb"
 BBMASK += "meta-qti-bsp/recipes-blast/system-core-headers/system-core-headers_2.0.bb"
 #BBMASK += "meta-qti-bsp/recipes-blast/procrank/procrank_2.0.bb"
-BBMASK += "meta-qti-bsp/recipes-blast/usb-composition/usb-composition_2.0.bb"
-BBMASK += "meta-qti-bsp/recipes-blast/usb-composition/usb-composition-recovery_2.0.bb"
+#BBMASK += "meta-qti-bsp/recipes-blast/usb-composition/usb-composition_2.0.bb"
+#BBMASK += "meta-qti-bsp/recipes-blast/usb-composition/usb-composition-recovery_2.0.bb"
 # Mask perf base recipe and any matching bbappends.
 BBMASK += ".*/recipes-kernel/perf/perf\.bb(append)?$"
 
 IMAGE_INSTALL:remove = "packagegroup-qti-debug-tools"
 RDEPENDS:packagegroup-qti-debug-tools:remove = "procrank"
 BBMASK:append = " .*/meta-qti-internal/recipes/msm-bus/msm-bus_git\.bb$"
+
+# Mask legacy mkbootimg recipes whose local SRC_URI payloads are not present
+BBMASK += "/meta-qti-bsp/recipes-android/mkbootimg/mkbootimg-kp\.bb$"
+BBMASK += "/meta-qti-bsp/recipes-android/mkbootimg/mkbootimg-gki_5\.10\.bb$"
+
+# QCS8550/Kalama KP 6.18: mask obsolete GKI mkbootimg recipes
+# Their SRC_URI expects legacy mkbootimg.py payloads not present in this workspace.
+BBMASK += "/meta-qti-bsp/recipes-android/mkbootimg/mkbootimg-gki_5\.15\.bb$"
+BBMASK += "/meta-qti-bsp/recipes-android/mkbootimg/mkbootimg-gki_6\.1\.bb$"
+BBMASK += "/meta-qti-bsp/recipes-android/mkbootimg/mkbootimg-gki_6\.6\.bb$"
+BBMASK += "/meta-qti-bsp/recipes-android/mkbootimg/mkbootimg-gki_6\.12\.bb$"
+
+
+
+# Remove unwanted packages from the image
+CORE_IMAGE_EXTRA_INSTALL:remove = "fastmmi diag diag-noship"
+
+# Remove packagegroups that pull these components into the image
+CORE_IMAGE_EXTRA_INSTALL:remove = "packagegroup-qti-fastmmi"
+
+# Remove packages from known packagegroups
+RDEPENDS:packagegroup-qti-fastmmi:remove = "fastmmi"
+RDEPENDS:packagegroup-qti-core:remove = "diag diag-noship"
+
+BBMASK:append = "|meta-qti-bsp-prop/recipes-android/libvmmem/libvmmem_1\.0\.bb"
+
+CORE_IMAGE_EXTRA_INSTALL:remove = "sva-eai"
+
+
+BBMASK:append = "|meta-qti-ss-mgr-prop/recipes/ssreq-server/ssreq-server_git\.bb"
+
+BBMASK:append = "|meta-qti-core-prop/recipes/chg-policy/chg-policy_13\.0\.bb"
+
+BBMASK:append = "|meta-qti-security-prop/recipes/securemsm-noship/securemsm-noship-oemvm\.bb"
+
+BBMASK:append = "|meta-qti-security-prop/recipes/connection-security/connection-security\.bb"
+
+BBMASK:append = "|meta-qti-security-prop/recipes/securemsm-noship/securemsm-noship_13\.0\.bb"
+
+BBMASK:append = "|meta-qti-bsp-prop/recipes-eai/sva-eai/sva-eai_2\.0\.bb"
+
+BBMASK:append = "|meta-qti-bsp-prop/recipes-blast/fastmmi/fastmmi_2\.0\.bb$"
+
+BBMASK:append = "|meta-qti-bsp-prop/recipes-(blast|bsp)/fastmmi/fastmmi_.*\.bb$"
+
+BBMASK:append = "|meta-qti-bsp-prop/.*/fastmmi/fastmmi_.*\.bb$"
