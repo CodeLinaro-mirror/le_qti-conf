@@ -7,7 +7,7 @@ Supported combinations are listed below.
       +---------------------+-----------------+------------------+
       | MACHINE             | DISTRO          |  VARIANT         |
       +---------------------+-----------------+------------------+
-      |sa8797               | auto            | debug perf       |
+      |gen5                 | auto            | debug perf       |
       |                     | auto-fts        | debug perf       |
       +---------------------+-----------------+------------------+
       |gvm-gen5             | auto-gvm        | debug perf       |
