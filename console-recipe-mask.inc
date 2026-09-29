@@ -19,9 +19,6 @@ BBMASK += ".*/meta-qti-bsp/recipes-bsp/psi-daemon/psi-daemon\.bb$"
 
 BBMASK += ".*/meta-qti-bsp/recipes-android/mtp/mtp_git\.bb$"
 
-#BBMASK += ".*/meta-qti-bsp/recipes-bsp/recovery/recovery_2\.0\.bb$"
-#BBMASK += ".*/meta-qti-bsp/recipes-bsp/recovery/applypatch-native\.bb$"
-#BBMASK += ".*/meta-qti-bsp/recipes-devtools/recovery-ab/recovery-ab_2\.0\.bb$"
 
 BBMASK += ".*/meta-qti-bsp/recipes-bsp/csmhost/csmhost\.bb$"
 
@@ -30,12 +27,6 @@ BBMASK += ".*/meta-qti-bsp/recipes-bsp/startup-scripts/storage-mount\.bb$"
 BBMASK += ".*/meta-qti-bsp/recipes-bsp/startup-scripts/recovery-updater\.bb$"
 BBMASK += ".*/meta-qti-bsp/recipes-bsp/startup-scripts/update-perms\.bb$"
 
-#BBMASK += ".*/meta-qti-bsp/recipes-devtools/bsdiff/bsdiff-native_git\.bb$"
-#BBMASK += ".*/meta-qti-bsp/recipes-devtools/libdivsufsort/libdivsufsort-native_git\.bb$"
-BBMASK += ".*/meta-qti-bsp/recipes-devtools/fsconfig/fsconfig_git\.bb$"
-#BBMASK += ".*/meta-qti-bsp/recipes-devtools/signapk/signapk-native_1\.0\.bb$"
-#BBMASK += ".*/meta-qti-bsp/recipes-devtools/releasetools/releasetools-native_1\.0\.bb$"
-BBMASK += ".*/meta-qti-bsp/recipes-devtools/dumpkey/dumpkey-native_1\.0\.bb$"
 
 BBMASK += ".*/meta-qti-bsp/recipes-kernel/dtc/dtc-android-build_1\.4\.4\.bb$"
 
@@ -72,7 +63,6 @@ BBMASK += ".*/meta-qti-bsp/recipes-kernel/linux-msm/linux-msm-headers_4\.14\.bb$
 BBMASK += ".*/meta-qti-bsp/recipes-kernel/linux-msm/linux-msm-headers_4\.19\.bb$"
 BBMASK += ".*/meta-qti-bsp/recipes-kernel/linux-msm/linux-msm-headers_5\.4\.bb$"
 BBMASK += ".*/meta-qti-bsp/recipes-kernel/linux-msm/linux-msm-headers_5\.10\.bb$"
-#BBMASK += ".*/meta-qti-bsp/recipes-devtools/oem-recovery/oem-recovery_2\.0\.bb$"
 BBMASK += ".*/meta-qti-bsp/recipes-android/libui/libui_git\.bb$"
 BBMASK += ".*/meta-qti-bsp/recipes-android/audio-route/audio-route_git\.bb$"
 #BBMASK += ".*/meta-qti-bsp/recipes-android/libhardware/libhardware_git\.bb$"
@@ -318,7 +308,9 @@ BBMASK += ".*/meta-qti-voiceai/.*\.bb(append)?$"
 BBMASK += ".*/meta-qti-wlan/.*\.bb(append)?$"
 BBMASK += ".*/meta-qti-wlan-prop/.*\.bb(append)?$"
 BBMASK += ".*/meta-ros/.*\.bb(append)?$"
-BBMASK += ".*/meta-selinux/.*\.bb(append)?$"
+#meta-selinux: mesa_%.bbappend is dangling - oe-core now ships mesa.bb(unversioned).
+#Drop when meta-selinux is moved to a matching branch
+BBMASK += ".*/meta-selinux/recipes-graphics/mesa/mesa_%\.bbappend$"
 
 # Temporarily exclude recipes requiring unavailable local source / legacy virtual/cross-cc
 BBMASK += "|.*/meta-qti-bsp-prop/recipes-bsp/fm/fm_git\.bb$"
@@ -330,20 +322,7 @@ BBMASK += "|.*/meta-qti-bsp-prop/recipes-video-userspace/qutest/qutest\.bb$"
 # Ignore all recipes and appends under the Telematics source tree.
 BBMASK += "|.*/layers/meta-qti-telematics/.*"
 
-# Reduced console: exclude Android recovery / OTA / verity image tooling.
-BBMASK += ".*/meta-qti-bsp/recipes-devtools/recovery-ab/recovery-ab_2\.0\.bb$"
-BBMASK += ".*/meta-qti-bsp/recipes-devtools/oem-recovery/oem-recovery_2\.0\.bb$"
-BBMASK += ".*/meta-qti-bsp/recipes-devtools/verity-fec/fec\.bb$"
-BBMASK += ".*/meta-qti-bsp/recipes-devtools/libfec/libfec\.bb$"
-BBMASK += ".*/meta-qti-bsp/recipes-devtools/squashfs_utils/libsquashfs-utils\.bb$"
-
-# Keep masked if OTA generation is not required.
-BBMASK += ".*/meta-qti-bsp/recipes-devtools/fsconfig/fsconfig_git\.bb$"
-BBMASK += ".*/meta-qti-bsp/recipes-devtools/bsdiff/bsdiff-native_git\.bb$"
-BBMASK += ".*/meta-qti-bsp/recipes-devtools/releasetools/releasetools-native_1\.0\.bb$"
-
 BBMASK += ".*/meta-qti-bsp/recipes-android/libhardware/libhardware_git\.bb$"
-BBMASK += ".*/meta-qti-bsp/recipes-devtools/libdivsufsort/libdivsufsort-native_git\.bb$"
 
 BBMASK += ".*/meta-qti-bsp-prop/recipes-multimedia/adsprpc/adsprpc_13\.0\.bb$"
 BBMASK += ".*/meta-qti-bsp-prop/recipes-bsp/ss-services/ss-services_2\.0\.bb$"
@@ -352,7 +331,6 @@ BBMASK += ".*/meta-qti-bsp-prop/recipes-bsp/msmirqbalance/msmirqbalance\.bb$"
 
 # Base recipes are intentionally masked; avoid unmatched .bbappend errors.
 BBMASK += ".*/meta-qti-bsp/recipes-android/libhardware/libhardware_git\.bbappend$"
-BBMASK += ".*/meta-qti-bsp/recipes-devtools/releasetools/releasetools-native_1\.0\.bbappend$"
 BBMASK += ".*/meta-qti-bsp/meta-qti-customizations/qti-bsp-prop/recipes-multimedia/adsprpc/adsprpc_%\.bbappend$"
 
 # Mask unavailable recipes individually
@@ -361,7 +339,6 @@ BBMASK += "meta-qti-bsp/recipes-blast/libcrypthelper-mediameta/libcrypthelper-me
 #BBMASK += "meta-qti-bsp/recipes-blast/fsmgr/fsmgr_2.0.bb"
 #BBMASK += "meta-qti-bsp/recipes-blast/libmincrypt/libmincrypt-native_2.0.bb"
 #BBMASK += "meta-qti-bsp/recipes-blast/libbase/libbase_2.0.bb"
-BBMASK += "meta-qti-bsp/recipes-blast/libion/libion_2.0.bb"
 #BBMASK += "meta-qti-bsp/recipes-blast/libmincrypt/libmincrypt_2.0.bb"
 BBMASK += "meta-qti-bsp/recipes-blast/libpagemap/libpagemap_2.0.bb"
 BBMASK += "meta-qti-bsp/recipes-blast/libsysutils/libsysutils_2.0.bb"
