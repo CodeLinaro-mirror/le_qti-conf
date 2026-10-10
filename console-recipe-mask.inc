@@ -45,6 +45,7 @@ BBMASK += ".*/meta-qti-bsp/recipes-kernel/toolchain/kernel-toolchain_5\.15\.bb$"
 BBMASK += ".*/meta-qti-bsp/recipes-kernel/toolchain/kernel-toolchain_5\.10\.bb$"
 BBMASK += ".*/meta-qti-bsp/recipes-kernel/lk/lk_git\.bb$"
 BBMASK += ".*/meta-qti-bsp/recipes-kernel/mod-signing-keys/mod-signing-keys_5\.10\.bb$"
+BBMASK += ".*/meta-qti-bsp/recipes-kernel/mod-signing-keys/mod-signing-keys_5\.15\.bb$"
 
 
 # Legacy / unavailable toolchain, bootloader, and sensing recipes
@@ -414,3 +415,19 @@ BBMASK:append = "|meta-qti-bsp-prop/.*/fastmmi/fastmmi_.*\.bb$"
 
 BBMASK += "meta-qti-qmmf/recipes/iot-core-oss/qti-c2-module\.bb"
 BBMASK += "meta-qti-qmmf/recipes/qmmf-sdk/qmmf-sdk_git\.bb"
+do_compile[depends] = ""
+
+
+# Kalama non-SELinux console: retain the legacy append without loading it.
+# OE-Core provides squashfs-tools_4.7.5.bb, so the _git append has no match.
+BBMASK:append:kalama:qti-distro-fullstack-noselinux-debug = " /meta-qti-bsp/recipes-devtools/squashfs-tools/squashfs-tools_git\.bbappend$"
+
+# Kalama non-SELinux console: mask the unmatched legacy coreutils append.
+# meta-oe provides uutils-coreutils_0.8.0.bb instead of version 0.0.28.
+BBMASK:append:kalama:qti-distro-fullstack-noselinux-debug = " /meta-qti-bsp/recipes-core/util-linux/uutils-coreutils_0\.0\.28\.bbappend$"
+
+# Kalama non-SELinux console: OE-Core provides systemd 259.5, not 255.x.
+BBMASK:append:kalama:qti-distro-fullstack-noselinux-debug = " /meta-qti-bsp/recipes-core/systemd/systemd_255\.%\.bbappend$"
+
+# OE-Core now uses mesa.bb; the legacy mesa_% append targets Mesa 24.0.7.
+BBMASK:append:kalama:qti-distro-fullstack-noselinux-debug = " /meta-qti-bsp/recipes-graphics/mesa/mesa_%\.bbappend$"
