@@ -37,10 +37,10 @@ WS=$(readlink -f $scriptdir/../..)
 # Patch poky with QTI optimizations which not part of thud branch.
 apply_poky_patches () {
     cd ${WS}/poky
-    for patchfile in $(cat qti-conf/patches/series); do
-        if patch -p1 -N --dry-run --silent < qti-conf/patches/$patchfile > /dev/null 2>&1; then
+    for patchfile in $(cat ${WS}/layers/qti-conf/patches/series); do
+        if patch -p1 -N --dry-run --silent < ${WS}/layers/qti-conf/patches/$patchfile > /dev/null 2>&1; then
             #apply the patch
-            patch -p1 -N --silent < qti-conf/patches/$patchfile > /dev/null 2>&1
+            patch -p1 -N --silent < ${WS}/layers/qti-conf/patches/$patchfile > /dev/null 2>&1
         fi
     done
 }
@@ -75,7 +75,7 @@ EOF
 }
 
 apply_console_recipe_masks () {
-    local mask_file="${WS}/poky/qti-conf/console-recipe-mask.inc"
+    local mask_file="${WS}/layers/qti-conf/console-recipe-mask.inc"
     local auto_conf="${BUILDDIR}/conf/auto.conf"
     local mask_require="require ${mask_file}"
 
@@ -153,7 +153,7 @@ PREFIMAG=`python $scriptdir/parse_imageinfo.py ${revision#refs/heads/} target`
 read uitool <<< "$(which whiptail dialog 2> /dev/null)"
 
 # create a common list of "<machine>(<layer>)", sorted by <machine>
-MACHLAYERS=$(cd ${WS}/poky && find meta-qti-bsp -print | grep "/conf/machine/.*\.conf" | grep -v "fsconfig" | grep -v "partition" | sed -e 's/\.conf//g' | awk -F'/conf/machine/' '{print $NF "(" $1 ")"}' | LANG=C sort)
+MACHLAYERS=$(cd ${WS}/layers && find meta-qti-bsp -print | grep "/conf/machine/.*\.conf" | grep -v "fsconfig" | grep -v "partition" | sed -e 's/\.conf//g' | awk -F'/conf/machine/' '{print $NF "(" $1 ")"}' | LANG=C sort)
 
 if [ -n "${MACHLAYERS}" ] && [ -z "${MACHINE}" ]; then
     for ITEM in $MACHLAYERS; do
@@ -182,7 +182,7 @@ if [ -n "${MACHLAYERS}" ] && [ -z "${MACHINE}" ]; then
 fi
 
 # create a common list of "<distro>(<layer>)", sorted by <distro>
-DISTROLAYERS=$(cd ${WS}/poky && find meta-qti-distro -print | grep "conf/distro/.*\.conf" | sed -e 's/\.conf//g' | awk -F'/conf/distro/' '{print $NF "(" $1 ")"}' | LANG=C sort)
+DISTROLAYERS=$(cd ${WS}/layers && find meta-qti-distro -print | grep "conf/distro/.*\.conf" | sed -e 's/\.conf//g' | awk -F'/conf/distro/' '{print $NF "(" $1 ")"}' | LANG=C sort)
 
 if [ -n "${DISTROLAYERS}" ] && [ -z "${DISTRO}" ]; then
     for ITEM in $DISTROLAYERS; do
@@ -265,7 +265,7 @@ fi
 
 
 # meta-qti-bsp-prop provides sdllvm.bbclass.
-WRYNOSE_BSP_PROP_LAYER="${WS}/poky/meta-qti-bsp-prop"
+WRYNOSE_BSP_PROP_LAYER="${WS}/layers/meta-qti-bsp-prop"
 
 if [ -f "${WRYNOSE_BSP_PROP_LAYER}/conf/layer.conf" ] && \
    ! grep -Fq "${WRYNOSE_BSP_PROP_LAYER}" "${BUILDDIR}/conf/bblayers.conf"; then

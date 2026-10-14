@@ -195,7 +195,7 @@ BBMASK += ".*/meta-qti-ml/recipes/tensorflow/tensorflow-lite_2\.6\.0\.bb$"
 BBMASK += ".*/meta-qti-ml/recipes/xnnpack/xnnpack\.bb$"
 
 # noselinux build: old QTI SELinux metadata requires absent refpolicy_git.inc
-BBMASK += ".*/meta-qti-sepolicy/recipes-security/sepolicy/.*\.bb$"
+#BBMASK += ".*/meta-qti-sepolicy/recipes-security/sepolicy/.*\.bb$"
 
 # Temporary noselinux migration mask — disables all QTI SELinux recipes.
 # BBMASK += ".*/meta-qti-sepolicy/.*\.bb$"
@@ -300,7 +300,7 @@ BBMASK += ".*/meta-qti-robos/.*\.bb(append)?$"
 BBMASK += ".*/meta-qti-robos-addon/.*\.bb(append)?$"
 BBMASK += ".*/meta-qti-robos-addon-internal/.*\.bb(append)?$"
 BBMASK += ".*/meta-qti-robos-prop/.*\.bb(append)?$"
-BBMASK += ".*/meta-qti-sepolicy/.*\.bb(append)?$"
+#BBMASK += ".*/meta-qti-sepolicy/.*\.bb(append)?$"
 #BBMASK += ".*/meta-qti-ss-mgr/.*\.bb(append)?$"
 #BBMASK += ".*/meta-qti-ss-mgr-prop/.*\.bb(append)?$"
 BBMASK += ".*/meta-qti-touch/.*\.bb(append)?$"
@@ -332,6 +332,8 @@ BBMASK += ".*/meta-qti-bsp-prop/recipes-bsp/msmirqbalance/msmirqbalance\.bb$"
 # Base recipes are intentionally masked; avoid unmatched .bbappend errors.
 BBMASK += ".*/meta-qti-bsp/recipes-android/libhardware/libhardware_git\.bbappend$"
 BBMASK += ".*/meta-qti-bsp/meta-qti-customizations/qti-bsp-prop/recipes-multimedia/adsprpc/adsprpc_%\.bbappend$"
+BBMASK += ".*/meta-qti-sepolicy/recipes-security/selinux/.*_3\.3\.bbappend$"
+BBMASK += ".*/meta-qti-sepolicy/recipes-extended/libnsl/libnsl2_git\.bbappend$"
 
 # Mask unavailable recipes individually
 BBMASK += "meta-qti-bsp/recipes-blast/leproperties/leproperties_2.0.bb"
@@ -401,3 +403,7 @@ BBMASK:append = "|meta-qti-bsp-prop/recipes-blast/fastmmi/fastmmi_2\.0\.bb$"
 BBMASK:append = "|meta-qti-bsp-prop/recipes-(blast|bsp)/fastmmi/fastmmi_.*\.bb$"
 
 BBMASK:append = "|meta-qti-bsp-prop/.*/fastmmi/fastmmi_.*\.bb$"
+
+
+BBMASK += "meta-qti-qmmf/recipes/iot-core-oss/qti-c2-module\.bb"
+BBMASK += "meta-qti-qmmf/recipes/qmmf-sdk/qmmf-sdk_git\.bb"
