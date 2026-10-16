@@ -134,9 +134,9 @@ BBMASK += ".*/meta-qti-bsp-prop/recipes-vam/vam-engines/vam-engines\.bb$"
 BBMASK += ".*/meta-qti-core-prop/recipes/energy-awareness/energy-awareness_13\.0\.bb$"
 BBMASK += ".*/meta-qti-core-prop/recipes/thermal/thermal_13\.0\.bb$"
 
-BBMASK += ".*/meta-qti-gfx-prop/recipes/adreno-subdriver-x11/adreno-subdriver-x11_git\.bb$"
-BBMASK += ".*/meta-qti-gfx-prop/recipes/adreno/egl-wayland-subdriver\.bb$"
-BBMASK += ".*/meta-qti-gfx-prop/recipes/adreno/clangtblgen\.bb$"
+#BBMASK += ".*/meta-qti-gfx-prop/recipes/adreno-subdriver-x11/adreno-subdriver-x11_git\.bb$"
+#BBMASK += ".*/meta-qti-gfx-prop/recipes/adreno/egl-wayland-subdriver\.bb$"
+#BBMASK += ".*/meta-qti-gfx-prop/recipes/adreno/clangtblgen\.bb$"
 
 BBMASK += ".*/meta-qti-security-prop/recipes/commonsys-intf-securemsm/commonsys-intf-securemsm\.bb$"
 BBMASK += ".*/meta-qti-security-prop/recipes/gensecimage/gensecimage_git\.bb$"
@@ -188,7 +188,11 @@ BBMASK += ".*/meta-qti-qmmf/recipes/iot-core-oss/qti-c2-module\.bb$"
 BBMASK += ".*/meta-qti-qmmf/recipes/qmmf-sdk/qmmf-sdk_git\.bb$"
 
 # Wrynose: legacy display/ML recipes require unavailable virtual/cross-cc
-BBMASK += ".*/meta-qti-display/recipes/display-commonsys/display-commonsys_git\.bb$"
+#BBMASK += ".*/meta-qti-display/recipes/display-commonsys/display-commonsys_git\.bb$"
+# Wrynose: legacy ML recipes require unavailable virtual/cross-cc
+# (display-commonsys converted to a headers-only recipe, unmasked below —
+# it no longer inherits autotools so it doesn't need cross-cc.)
+
 BBMASK += ".*/meta-qti-ml/recipes/arm-nn-driver/arm-nn-driver_20\.02\.bb$"
 BBMASK += ".*/meta-qti-ml/recipes/tensorflow/tensorflow-lite_2\.15\.0\.bb$"
 BBMASK += ".*/meta-qti-ml/recipes/tensorflow/tensorflow-lite_2\.8\.0\.bb$"
@@ -225,8 +229,18 @@ BBMASK += ".*/meta-qti-camera/.*\.bb(append)?$"
 BBMASK += ".*/meta-qti-camera-internal/.*\.bb(append)?$"
 BBMASK += ".*/meta-qti-camera-prop/.*\.bb(append)?$"
 
-# Minimal Kalama console build: exclude all display-stack recipes and appends.
-BBMASK += ".*/meta-qti-display/.*\.bb(append)?$"
+# DISPLAY STACK UNMASKED — meta-qti-display layers re-enabled for Kalama display build.
+# BBMASK += ".*/meta-qti-display/.*\.bb(append)?$"
+# BBMASK += ".*/meta-qti-display-internal/.*\.bb(append)?$"
+# BBMASK += ".*/meta-qti-display-prop/.*\.bb(append)?$"
+# Minimal Kalama console build: exclude all display-stack recipes and appends,
+# except gbm (adreno PACKAGECONFIG[gbm] dependency) and its direct DEPENDS
+# display-commonsys and displaydlkm-headers — real local source confirmed
+# present under ${WORKSPACE}/display/vendor/qcom/opensource/. display-commonsys
+# was rewritten as a headers-only recipe (see meta-qti-display/recipes/
+# display-commonsys/display-commonsys_git.bb) so it no longer needs
+# virtual/cross-cc.
+BBMASK += ".*/meta-qti-display/(?!recipes/libgbm/gbm_21\.1\.1\.bb$|recipes/display-commonsys/display-commonsys_git\.bb$|recipes/display_dlkm_kernel/displaydlkm-headers_git\.bb$).*\.bb(append)?$"
 BBMASK += ".*/meta-qti-display-internal/.*\.bb(append)?$"
 BBMASK += ".*/meta-qti-display-prop/.*\.bb(append)?$"
 
@@ -413,6 +427,7 @@ BBMASK:append = "|meta-qti-bsp-prop/recipes-(blast|bsp)/fastmmi/fastmmi_.*\.bb$"
 BBMASK:append = "|meta-qti-bsp-prop/.*/fastmmi/fastmmi_.*\.bb$"
 
 
+
 BBMASK += "meta-qti-qmmf/recipes/iot-core-oss/qti-c2-module\.bb"
 BBMASK += "meta-qti-qmmf/recipes/qmmf-sdk/qmmf-sdk_git\.bb"
 do_compile[depends] = ""
@@ -431,3 +446,9 @@ BBMASK:append:kalama:qti-distro-fullstack-noselinux-debug = " /meta-qti-bsp/reci
 
 # OE-Core now uses mesa.bb; the legacy mesa_% append targets Mesa 24.0.7.
 BBMASK:append:kalama:qti-distro-fullstack-noselinux-debug = " /meta-qti-bsp/recipes-graphics/mesa/mesa_%\.bbappend$"
+
+# packagegroup-qti-core bbappends — mask if base recipe is absent/masked
+BBMASK += ".*/meta-qti-core-prop/recipes/packagegroups/packagegroup-qti-core\.bbappend$"
+BBMASK += ".*/meta-qti-core/recipes/packagegroups/packagegroup-qti-core\.bbappend$"
+BBMASK += ".*/meta-qti-core-internal/recipes/packagegroups/packagegroup-qti-core\.bbappend$"
+
