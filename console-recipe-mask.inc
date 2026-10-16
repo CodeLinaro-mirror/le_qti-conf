@@ -335,6 +335,14 @@ BBMASK += ".*/meta-qti-bsp/meta-qti-customizations/qti-bsp-prop/recipes-multimed
 BBMASK += ".*/meta-qti-sepolicy/recipes-security/selinux/.*_3\.3\.bbappend$"
 BBMASK += ".*/meta-qti-sepolicy/recipes-extended/libnsl/libnsl2_git\.bbappend$"
 
+# These QTI appends target recipe revisions that are not present in the
+# current Wrynose metadata. Keep them masked until matching recipes or
+# forward-ported patches are added; otherwise BitBake aborts during parsing.
+BBMASK += ".*/meta-qti-bsp/recipes-core/systemd/systemd_255\.%\.bbappend$"
+BBMASK += ".*/meta-qti-bsp/recipes-core/util-linux/uutils-coreutils_0\.0\.28\.bbappend$"
+BBMASK += ".*/meta-qti-bsp/recipes-devtools/squashfs-tools/squashfs-tools_git\.bbappend$"
+BBMASK += ".*/meta-qti-bsp/recipes-graphics/mesa/mesa_%\.bbappend$"
+
 # Mask unavailable recipes individually
 BBMASK += "meta-qti-bsp/recipes-blast/leproperties/leproperties_2.0.bb"
 BBMASK += "meta-qti-bsp/recipes-blast/libcrypthelper-mediameta/libcrypthelper-mediameta_2.0.bb"
@@ -407,3 +415,7 @@ BBMASK:append = "|meta-qti-bsp-prop/.*/fastmmi/fastmmi_.*\.bb$"
 
 BBMASK += "meta-qti-qmmf/recipes/iot-core-oss/qti-c2-module\.bb"
 BBMASK += "meta-qti-qmmf/recipes/qmmf-sdk/qmmf-sdk_git\.bb"
+
+# perf removed
+RDEPENDS:${PN}:remove = "perf"
+
