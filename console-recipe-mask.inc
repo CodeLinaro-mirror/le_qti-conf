@@ -19,6 +19,9 @@ BBMASK += ".*/meta-qti-bsp/recipes-bsp/psi-daemon/psi-daemon\.bb$"
 
 BBMASK += ".*/meta-qti-bsp/recipes-android/mtp/mtp_git\.bb$"
 
+#BBMASK += ".*/meta-qti-bsp/recipes-bsp/recovery/recovery_2\.0\.bb$"
+#BBMASK += ".*/meta-qti-bsp/recipes-bsp/recovery/applypatch-native\.bb$"
+#BBMASK += ".*/meta-qti-bsp/recipes-devtools/recovery-ab/recovery-ab_2\.0\.bb$"
 
 BBMASK += ".*/meta-qti-bsp/recipes-bsp/csmhost/csmhost\.bb$"
 
@@ -27,6 +30,12 @@ BBMASK += ".*/meta-qti-bsp/recipes-bsp/startup-scripts/storage-mount\.bb$"
 BBMASK += ".*/meta-qti-bsp/recipes-bsp/startup-scripts/recovery-updater\.bb$"
 BBMASK += ".*/meta-qti-bsp/recipes-bsp/startup-scripts/update-perms\.bb$"
 
+#BBMASK += ".*/meta-qti-bsp/recipes-devtools/bsdiff/bsdiff-native_git\.bb$"
+#BBMASK += ".*/meta-qti-bsp/recipes-devtools/libdivsufsort/libdivsufsort-native_git\.bb$"
+# fsconfig-native is required by the qti-robotics-image filesystem image flow.
+#BBMASK += ".*/meta-qti-bsp/recipes-devtools/signapk/signapk-native_1\.0\.bb$"
+#BBMASK += ".*/meta-qti-bsp/recipes-devtools/releasetools/releasetools-native_1\.0\.bb$"
+BBMASK += ".*/meta-qti-bsp/recipes-devtools/dumpkey/dumpkey-native_1\.0\.bb$"
 
 BBMASK += ".*/meta-qti-bsp/recipes-kernel/dtc/dtc-android-build_1\.4\.4\.bb$"
 
@@ -64,6 +73,7 @@ BBMASK += ".*/meta-qti-bsp/recipes-kernel/linux-msm/linux-msm-headers_4\.14\.bb$
 BBMASK += ".*/meta-qti-bsp/recipes-kernel/linux-msm/linux-msm-headers_4\.19\.bb$"
 BBMASK += ".*/meta-qti-bsp/recipes-kernel/linux-msm/linux-msm-headers_5\.4\.bb$"
 BBMASK += ".*/meta-qti-bsp/recipes-kernel/linux-msm/linux-msm-headers_5\.10\.bb$"
+#BBMASK += ".*/meta-qti-bsp/recipes-devtools/oem-recovery/oem-recovery_2\.0\.bb$"
 BBMASK += ".*/meta-qti-bsp/recipes-android/libui/libui_git\.bb$"
 BBMASK += ".*/meta-qti-bsp/recipes-android/audio-route/audio-route_git\.bb$"
 #BBMASK += ".*/meta-qti-bsp/recipes-android/libhardware/libhardware_git\.bb$"
@@ -166,7 +176,8 @@ BBMASK += ".*/meta-qti-internal/recipes/kernel-tests/kernel-tests-gki_git\.bb$"
 BBMASK += ".*/meta-qti-internal/recipes/kernel-tests/kernel-tests-internal-modules_git\.bb$"
 BBMASK += ".*/meta-qti-internal/recipes/kernel-tests/kernel-tests-internal_git\.bb$"
 BBMASK += ".*/meta-qti-internal/recipes/linux-host/linux-host\.bb$"
-BBMASK += ".*/meta-qti-internal/recipes/display-tests/display-tests_git\.bb$"
+# UNMASKED: display-tests re-enabled for display stack build
+# BBMASK += ".*/meta-qti-internal/recipes/display-tests/display-tests_git\.bb$"
 BBMASK += ".*/meta-qti-internal/recipes/vm-bms/vm-bms_git\.bb$"
 BBMASK += ".*/meta-virtualization/recipes-core/meta/container-dummy-provides\.bb$"
 
@@ -188,6 +199,7 @@ BBMASK += ".*/meta-qti-qmmf/recipes/iot-core-oss/qti-c2-module\.bb$"
 BBMASK += ".*/meta-qti-qmmf/recipes/qmmf-sdk/qmmf-sdk_git\.bb$"
 
 # Wrynose: legacy display/ML recipes require unavailable virtual/cross-cc
+
 #BBMASK += ".*/meta-qti-display/recipes/display-commonsys/display-commonsys_git\.bb$"
 # Wrynose: legacy ML recipes require unavailable virtual/cross-cc
 # (display-commonsys converted to a headers-only recipe, unmasked below —
@@ -233,16 +245,6 @@ BBMASK += ".*/meta-qti-camera-prop/.*\.bb(append)?$"
 # BBMASK += ".*/meta-qti-display/.*\.bb(append)?$"
 # BBMASK += ".*/meta-qti-display-internal/.*\.bb(append)?$"
 # BBMASK += ".*/meta-qti-display-prop/.*\.bb(append)?$"
-# Minimal Kalama console build: exclude all display-stack recipes and appends,
-# except gbm (adreno PACKAGECONFIG[gbm] dependency) and its direct DEPENDS
-# display-commonsys and displaydlkm-headers — real local source confirmed
-# present under ${WORKSPACE}/display/vendor/qcom/opensource/. display-commonsys
-# was rewritten as a headers-only recipe (see meta-qti-display/recipes/
-# display-commonsys/display-commonsys_git.bb) so it no longer needs
-# virtual/cross-cc.
-BBMASK += ".*/meta-qti-display/(?!recipes/libgbm/gbm_21\.1\.1\.bb$|recipes/display-commonsys/display-commonsys_git\.bb$|recipes/display_dlkm_kernel/displaydlkm-headers_git\.bb$).*\.bb(append)?$"
-BBMASK += ".*/meta-qti-display-internal/.*\.bb(append)?$"
-BBMASK += ".*/meta-qti-display-prop/.*\.bb(append)?$"
 
 # Minimal Kalama console build: disable location services.
 BBMASK += ".*/meta-qti-location/.*\.bb(append)?$"
@@ -258,7 +260,7 @@ BBMASK += ".*/meta-qti-ml-prop/.*\.bb(append)?$"
 
 
 BBMASK += ".*/meta-qti-agm/.*\.bb(append)?$"
-BBMASK += ".*/meta-qti-aosphal-adaptation/.*\.bb(append)?$"
+BBMASK += ".*/meta-qti-aosphal-adaptation/(?!recipes/libhardware/libhardware_1\.0\.bb$).*\.bb(append)?$"
 BBMASK += ".*/meta-qti-args/.*\.bb(append)?$"
 BBMASK += ".*/meta-qti-arpal/.*\.bb(append)?$"
 BBMASK += ".*/meta-qti-atf/.*\.bb(append)?$"
@@ -268,7 +270,7 @@ BBMASK += ".*/meta-qti-bt/.*\.bb(append)?$"
 BBMASK += ".*/meta-qti-pt-prop/.*\.bb(append)?$"
 
 BBMASK += ".*/meta-qti-agm/.*\.bb(append)?$"
-BBMASK += ".*/meta-qti-aosphal-adaptation/.*\.bb(append)?$"
+BBMASK += ".*/meta-qti-aosphal-adaptation/(?!recipes/libhardware/libhardware_1\.0\.bb$).*\.bb(append)?$"
 BBMASK += ".*/meta-qti-args/.*\.bb(append)?$"
 BBMASK += ".*/meta-qti-arpal/.*\.bb(append)?$"
 BBMASK += ".*/meta-qti-atf/.*\.bb(append)?$"
@@ -282,18 +284,35 @@ BBMASK += ".*/meta-qti-camera-internal/.*\.bb(append)?$"
 BBMASK += ".*/meta-qti-camera-prop/.*\.bb(append)?$"
 BBMASK += ".*/meta-qti-data/.*\.bb(append)?$"
 BBMASK += ".*/meta-qti-data-prop/.*\.bb(append)?$"
-BBMASK += ".*/meta-qti-display/.*\.bb(append)?$"
-BBMASK += ".*/meta-qti-display-internal/.*\.bb(append)?$"
-BBMASK += ".*/meta-qti-display-prop/.*\.bb(append)?$"
+
+# DISPLAY STACK UNMASKED in big block too — re-enabled for Kalama display build.
+# BBMASK += ".*/meta-qti-display/.*\.bb(append)?$"
+# BBMASK += ".*/meta-qti-display-internal/.*\.bb(append)?$"
+# BBMASK += ".*/meta-qti-display-prop/.*\.bb(append)?$"
+
 BBMASK += ".*/meta-qti-eva/.*\.bb(append)?$"
 BBMASK += ".*/meta-qti-eva-devicetree/.*\.bb(append)?$"
 BBMASK += ".*/meta-qti-eva-internal/.*\.bb(append)?$"
 BBMASK += ".*/meta-qti-eva-prop/.*\.bb(append)?$"
 BBMASK += ".*/meta-qti-fastcv-internal/.*\.bb(append)?$"
 BBMASK += ".*/meta-qti-fastcv-prop/.*\.bb(append)?$"
-BBMASK += ".*/meta-qti-gfx-kernel/.*\.bb(append)?$"
-BBMASK += ".*/meta-qti-gfx-kernel-prop/.*\.bb(append)?$"
-BBMASK += ".*/meta-qti-gfx-prop/.*\.bb(append)?$"
+
+# GFX recipes unmasked: graphicsdlkm, graphicsdevicetree, adreno,
+# packagegroup-qti-gfx are all visible.
+# These 3 legacy source-build (adreno-cmake.inc / "adreno200") recipes have
+# no local SRC_URI content anywhere in this workspace (verified: not under
+# src/, not under WORKSPACE, not under le-bins-1) and are unused by the
+# actual prebuilt-binary adreno recipe (adreno-cmake-bins.inc / le-bins-1).
+# NOTE: do not unmask without first adding the missing SRC_URI content —
+# bitbake's parse-time checksum validation runs across the whole recipe
+# cache regardless of dependency-graph reachability, so unmasking these
+# with no local source present hard-fails `bitbake -p` / every build
+# (confirmed 2026-10-12: "Unable to get checksum ... file could not be
+# found" x3, "Parsing halted due to errors").
+#BBMASK += ".*/meta-qti-gfx-prop/recipes/adreno-subdriver-x11/adreno-subdriver-x11_git\.bb$"
+#BBMASK += ".*/meta-qti-gfx-prop/recipes/adreno/egl-wayland-subdriver\.bb$"
+#BBMASK += ".*/meta-qti-gfx-prop/recipes/adreno/clangtblgen\.bb$"
+
 BBMASK += ".*/meta-qti-internal/.*\.bb(append)?$"
 BBMASK += ".*/meta-qti-iotpower-prop/.*\.bb(append)?$"
 BBMASK += ".*/meta-qti-location/.*\.bb(append)?$"
@@ -364,13 +383,18 @@ BBMASK += "meta-qti-bsp/recipes-blast/libcrypthelper-mediameta/libcrypthelper-me
 #BBMASK += "meta-qti-bsp/recipes-blast/fsmgr/fsmgr_2.0.bb"
 #BBMASK += "meta-qti-bsp/recipes-blast/libmincrypt/libmincrypt-native_2.0.bb"
 #BBMASK += "meta-qti-bsp/recipes-blast/libbase/libbase_2.0.bb"
+# Display's libdmabufheap path directly depends on libion; its source exists
+# at \${WORKSPACE_SOURCES}/system/core/libion.
+# BBMASK += "meta-qti-bsp/recipes-blast/libion/libion_2.0.bb"
 #BBMASK += "meta-qti-bsp/recipes-blast/libmincrypt/libmincrypt_2.0.bb"
 BBMASK += "meta-qti-bsp/recipes-blast/libpagemap/libpagemap_2.0.bb"
 BBMASK += "meta-qti-bsp/recipes-blast/libsysutils/libsysutils_2.0.bb"
 BBMASK += "meta-qti-bsp/recipes-blast/logd/logd_2.0.bb"
 BBMASK += "meta-qti-bsp/recipes-blast/post-boot/post-boot_2.0.bb"
 BBMASK += "meta-qti-bsp/recipes-blast/logcat/logcat_2.0.bb"
-BBMASK += "meta-qti-bsp/recipes-blast/system-core-headers/system-core-headers_2.0.bb"
+# Display dependencies use the Android core headers available in
+# \${WORKSPACE_SOURCES}/system/core/include.
+# BBMASK += "meta-qti-bsp/recipes-blast/system-core-headers/system-core-headers_2.0.bb"
 #BBMASK += "meta-qti-bsp/recipes-blast/procrank/procrank_2.0.bb"
 #BBMASK += "meta-qti-bsp/recipes-blast/usb-composition/usb-composition_2.0.bb"
 #BBMASK += "meta-qti-bsp/recipes-blast/usb-composition/usb-composition-recovery_2.0.bb"
@@ -403,7 +427,10 @@ CORE_IMAGE_EXTRA_INSTALL:remove = "packagegroup-qti-fastmmi"
 RDEPENDS:packagegroup-qti-fastmmi:remove = "fastmmi"
 RDEPENDS:packagegroup-qti-core:remove = "diag diag-noship"
 
-BBMASK:append = "|meta-qti-bsp-prop/recipes-android/libvmmem/libvmmem_1\.0\.bb"
+
+
+#BBMASK:append = "|meta-qti-bsp-prop/recipes-android/libvmmem/libvmmem_1\.0\.bb"
+
 
 CORE_IMAGE_EXTRA_INSTALL:remove = "sva-eai"
 
