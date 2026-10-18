@@ -359,8 +359,7 @@ BBMASK += "meta-qti-bsp/recipes-blast/system-core-headers/system-core-headers_2.
 #BBMASK += "meta-qti-bsp/recipes-blast/procrank/procrank_2.0.bb"
 #BBMASK += "meta-qti-bsp/recipes-blast/usb-composition/usb-composition_2.0.bb"
 #BBMASK += "meta-qti-bsp/recipes-blast/usb-composition/usb-composition-recovery_2.0.bb"
-# Mask perf base recipe and any matching bbappends.
-BBMASK += ".*/recipes-kernel/perf/perf\.bb(append)?$"
+# Keep the OpenEmbedded perf utility available to packagegroup-qti-debug-tools.
 
 IMAGE_INSTALL:remove = "packagegroup-qti-debug-tools"
 RDEPENDS:packagegroup-qti-debug-tools:remove = "procrank"
@@ -415,6 +414,3 @@ BBMASK:append = "|meta-qti-bsp-prop/.*/fastmmi/fastmmi_.*\.bb$"
 
 BBMASK += "meta-qti-qmmf/recipes/iot-core-oss/qti-c2-module\.bb"
 BBMASK += "meta-qti-qmmf/recipes/qmmf-sdk/qmmf-sdk_git\.bb"
-
-# perf removed
-RDEPENDS:${PN}:remove = "perf"
