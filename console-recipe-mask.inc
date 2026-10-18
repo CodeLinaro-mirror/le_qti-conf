@@ -288,7 +288,7 @@ BBMASK += ".*/meta-qti-matter/.*\.bb(append)?$"
 BBMASK += ".*/meta-qti-ml/.*\.bb(append)?$"
 BBMASK += ".*/meta-qti-ml-prop/.*\.bb(append)?$"
 BBMASK += ".*/meta-qti-mmframeworks-prop/.*\.bb(append)?$"
-BBMASK += ".*/meta-qti-perf-prop/.*\.bb(append)?$"
+# Keep meta-qti-perf-prop enabled for packagegroup-qti-perf and perf-hal.
 BBMASK += ".*/meta-qti-psdk-core/.*\.bb(append)?$"
 BBMASK += ".*/meta-qti-psdk-core-internal/.*\.bb(append)?$"
 BBMASK += ".*/meta-qti-psdk-core-prop/.*\.bb(append)?$"
@@ -418,4 +418,3 @@ BBMASK += "meta-qti-qmmf/recipes/qmmf-sdk/qmmf-sdk_git\.bb"
 
 # perf removed
 RDEPENDS:${PN}:remove = "perf"
-
