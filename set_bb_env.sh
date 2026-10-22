@@ -235,9 +235,9 @@ unset_bb_env() {
 }
 
 # Initialize bblayers.conf and local.conf
-# Get MACHINE value from -m <machine>, default is sa81x5
+# Get MACHINE value from -m <machine>, default is gen5
 if [ -z "$QTARGET" ]; then
-    export QTARGET="sa8797"
+    export QTARGET="gen5"
 fi
 
 # Get VARIANT value from -v <variant>, default is debug

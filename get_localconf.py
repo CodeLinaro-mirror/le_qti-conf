@@ -130,15 +130,15 @@ elif TARGET == "sa8255-ivi-qcvirtio" :
 elif TARGET == "sa7255" :
     DISTRO = "auto"
     MACHINE = "sa7255"
-elif TARGET == "sa8797" :
+elif TARGET == "gen5" :
     DISTRO = "auto"
-    MACHINE = "sa8797"
+    MACHINE = "gen5"
 elif TARGET == "sa8797dc" :
     DISTRO = "auto"
     MACHINE = "sa8797dc"
-elif TARGET == "sa8797-fts" :
+elif TARGET == "gen5-fts" :
     DISTRO = "auto-fts"
-    MACHINE = "sa8797"
+    MACHINE = "gen5"
 elif TARGET == "sa7255-ivi" :
     DISTRO = "auto"
     MACHINE = "sa7255-ivi"
