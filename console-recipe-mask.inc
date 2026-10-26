@@ -224,9 +224,9 @@ BBMASK += ".*/meta-qti-audio/.*\.bb$"
 BBMASK += ".*/meta-qti-bt/.*\.bb$"
 BBMASK += ".*/meta-qti-bt-prop/.*\.bb$"
 
-BBMASK += ".*/meta-qti-camera/.*\.bb$"
+BBMASK += ".*/meta-qti-camera/(?!recipes/camera_dlkm_kernel/cameradlkm_git\.bb$|recipes/packagegroups/packagegroup-qti-camera-kernel\.bb$).*\.bb$"
 BBMASK += ".*/meta-qti-camera-internal/.*\.bb$"
-BBMASK += ".*/meta-qti-camera-prop/.*\.bb$"
+BBMASK += ".*/meta-qti-camera-prop/(?!recipes/camx/(cameradtb|camx|camxlib|chicdklib)_0\.1\.bb$|recipes/packagegroups/packagegroup-qti-camera\.bb$).*\.bb$"
 
 # Minimal Kalama console build: disable all Robos stack recipes.
 BBMASK += ".*/meta-qti-robos/.*\.bb(append)?$"
@@ -237,9 +237,9 @@ BBMASK += ".*/meta-qti-robos-internal/.*\.bb(append)?$"
 BBMASK += ".*/meta-qti-robos-prop/.*\.bb(append)?$"
 
 # Minimal Kalama console build: exclude all camera-stack recipes and appends.
-BBMASK += ".*/meta-qti-camera/.*\.bb(append)?$"
+BBMASK += ".*/meta-qti-camera/(?!recipes/camera_dlkm_kernel/cameradlkm_git\.bb$|recipes/packagegroups/packagegroup-qti-camera-kernel\.bb$).*\.bb(append)?$"
 BBMASK += ".*/meta-qti-camera-internal/.*\.bb(append)?$"
-BBMASK += ".*/meta-qti-camera-prop/.*\.bb(append)?$"
+BBMASK += ".*/meta-qti-camera-prop/(?!recipes/camx/(cameradtb|camx|camxlib|chicdklib)_0\.1\.bb$|recipes/packagegroups/packagegroup-qti-camera\.bb$).*\.bb(append)?$"
 
 # DISPLAY STACK UNMASKED — meta-qti-display layers re-enabled for Kalama display build.
 # BBMASK += ".*/meta-qti-display/.*\.bb(append)?$"
@@ -260,7 +260,8 @@ BBMASK += ".*/meta-qti-ml-prop/.*\.bb(append)?$"
 
 
 BBMASK += ".*/meta-qti-agm/.*\.bb(append)?$"
-BBMASK += ".*/meta-qti-aosphal-adaptation/(?!recipes/libhardware/libhardware_1\.0\.bb$).*\.bb(append)?$"
+#BBMASK += ".*/meta-qti-aosphal-adaptation/(?!recipes/camera-metadata/camera-metadata_1/libhardware/libhardware_1\.0\.bb$).*\.bb(append)?$"
+BBMASK += ".*/meta-qti-aosphal-adaptation/(?!recipes/camera-metadata/camera-metadata_1\.1\.bb$).*\.bb(append)?$"
 BBMASK += ".*/meta-qti-args/.*\.bb(append)?$"
 BBMASK += ".*/meta-qti-arpal/.*\.bb(append)?$"
 BBMASK += ".*/meta-qti-atf/.*\.bb(append)?$"
@@ -270,7 +271,8 @@ BBMASK += ".*/meta-qti-bt/.*\.bb(append)?$"
 BBMASK += ".*/meta-qti-pt-prop/.*\.bb(append)?$"
 
 BBMASK += ".*/meta-qti-agm/.*\.bb(append)?$"
-BBMASK += ".*/meta-qti-aosphal-adaptation/(?!recipes/libhardware/libhardware_1\.0\.bb$).*\.bb(append)?$"
+#BBMASK += ".*/meta-qti-aosphal-adaptation/(?!recipes/camera-metadata/camera-metadata_1/libhardware/libhardware_1\.0\.bb$).*\.bb(append)?$"
+BBMASK += ".*/meta-qti-aosphal-adaptation/(?!recipes/camera-metadata/camera-metadata_1\.1\.bb$).*\.bb(append)?$"
 BBMASK += ".*/meta-qti-args/.*\.bb(append)?$"
 BBMASK += ".*/meta-qti-arpal/.*\.bb(append)?$"
 BBMASK += ".*/meta-qti-atf/.*\.bb(append)?$"
@@ -279,9 +281,9 @@ BBMASK += ".*/meta-qti-audio-external/.*\.bb(append)?$"
 BBMASK += ".*/meta-qti-audio-prop/.*\.bb(append)?$"
 BBMASK += ".*/meta-qti-bt/.*\.bb(append)?$"
 BBMASK += ".*/meta-qti-bt-prop/.*\.bb(append)?$"
-BBMASK += ".*/meta-qti-camera/.*\.bb(append)?$"
+BBMASK += ".*/meta-qti-camera/(?!recipes/camera_dlkm_kernel/cameradlkm_git\.bb$|recipes/packagegroups/packagegroup-qti-camera-kernel\.bb$).*\.bb(append)?$"
 BBMASK += ".*/meta-qti-camera-internal/.*\.bb(append)?$"
-BBMASK += ".*/meta-qti-camera-prop/.*\.bb(append)?$"
+BBMASK += ".*/meta-qti-camera-prop/(?!recipes/camx/(cameradtb|camx|camxlib|chicdklib)_0\.1\.bb$|recipes/packagegroups/packagegroup-qti-camera\.bb$).*\.bb(append)?$"
 BBMASK += ".*/meta-qti-data/.*\.bb(append)?$"
 BBMASK += ".*/meta-qti-data-prop/.*\.bb(append)?$"
 
@@ -290,12 +292,13 @@ BBMASK += ".*/meta-qti-data-prop/.*\.bb(append)?$"
 # BBMASK += ".*/meta-qti-display-internal/.*\.bb(append)?$"
 # BBMASK += ".*/meta-qti-display-prop/.*\.bb(append)?$"
 
-BBMASK += ".*/meta-qti-eva/.*\.bb(append)?$"
+#BBMASK += ".*/meta-qti-eva/.*\.bb(append)?$"
 BBMASK += ".*/meta-qti-eva-devicetree/.*\.bb(append)?$"
 BBMASK += ".*/meta-qti-eva-internal/.*\.bb(append)?$"
-BBMASK += ".*/meta-qti-eva-prop/.*\.bb(append)?$"
+#BBMASK += ".*/meta-qti-eva-prop/.*\.bb(append)?$"
 BBMASK += ".*/meta-qti-fastcv-internal/.*\.bb(append)?$"
-BBMASK += ".*/meta-qti-fastcv-prop/.*\.bb(append)?$"
+#BBMASK += ".*/meta-qti-fastcv-prop/.*\.bb(append)?$"
+BBMASK += ".*/meta-qti-fastcv-prop/(?!recipes/fastcv-noship/fastcv-noship_1\.0\.bb$).*\.bb(append)?$"
 
 # GFX recipes unmasked: graphicsdlkm, graphicsdevicetree, adreno,
 # packagegroup-qti-gfx are all visible.
@@ -321,7 +324,7 @@ BBMASK += ".*/meta-qti-location-prop/.*\.bb(append)?$"
 BBMASK += ".*/meta-qti-matter/.*\.bb(append)?$"
 BBMASK += ".*/meta-qti-ml/.*\.bb(append)?$"
 BBMASK += ".*/meta-qti-ml-prop/.*\.bb(append)?$"
-BBMASK += ".*/meta-qti-mmframeworks-prop/.*\.bb(append)?$"
+#BBMASK += ".*/meta-qti-mmframeworks-prop/.*\.bb(append)?$"
 # Keep meta-qti-perf-prop enabled for packagegroup-qti-perf and perf-hal.
 BBMASK += ".*/meta-qti-psdk-core/.*\.bb(append)?$"
 BBMASK += ".*/meta-qti-psdk-core-internal/.*\.bb(append)?$"
@@ -356,9 +359,9 @@ BBMASK += "|.*/meta-qti-bsp-prop/recipes-video-userspace/qutest/qutest\.bb$"
 # Ignore all recipes and appends under the Telematics source tree.
 BBMASK += "|.*/layers/meta-qti-telematics/.*"
 
-BBMASK += ".*/meta-qti-bsp/recipes-android/libhardware/libhardware_git\.bb$"
+#BBMASK += ".*/meta-qti-bsp/recipes-android/libhardware/libhardware_git\.bb$"
 
-BBMASK += ".*/meta-qti-bsp-prop/recipes-multimedia/adsprpc/adsprpc_13\.0\.bb$"
+BBMASK += ".*/meta-qti-bsp-prop/recipes-multimedia/adsprpc/(?!adsprpc_13\.0\.bb$|dspservices-headers_13\.0\.bb$).*\.bb$"
 BBMASK += ".*/meta-qti-bsp-prop/recipes-bsp/ss-services/ss-services_2\.0\.bb$"
 BBMASK += ".*/meta-qti-bsp-prop/recipes-bsp/msmirqbalance/msmirqbalance\.bb$"
 
