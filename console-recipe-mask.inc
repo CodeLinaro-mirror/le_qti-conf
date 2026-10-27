@@ -479,3 +479,49 @@ BBMASK += ".*/meta-qti-core-prop/recipes/packagegroups/packagegroup-qti-core\.bb
 BBMASK += ".*/meta-qti-core/recipes/packagegroups/packagegroup-qti-core\.bbappend$"
 BBMASK += ".*/meta-qti-core-internal/recipes/packagegroups/packagegroup-qti-core\.bbappend$"
 
+
+# MLMuxer source gst-plugin-qtimuxserialize not delivered in current im-sdk.lnx.1.0.0 drop. Remove once source is available.
+BBMASK += ".*/gstreamer1.0-plugins-qti-oss-mlmuxer\.bb$"
+BBMASK += ".*/tensorflow-lite-prebuilt\.bb$"
+
+# Legacy GStreamer bbappends do not match the GStreamer 1.28.x
+# recipe set used by the current im-sdk component.
+# Remove these masks during final 1.28 migration cleanup.
+
+# Core
+BBMASK += ".*/gstreamer1\.0_1\.14\.4\.bbappend$"
+BBMASK += ".*/gstreamer1\.0_1\.20.*\.bbappend$"
+BBMASK += ".*/gstreamer1\.0_1\.22.*\.bbappend$"
+BBMASK += ".*/gstreamer1\.0_1\.24.*\.bbappend$"
+
+# Plugins Base
+BBMASK += ".*/gstreamer1\.0-plugins-base_1\.14\.4\.bbappend$"
+BBMASK += ".*/gstreamer1\.0-plugins-base_1\.16\.3\.bbappend$"
+BBMASK += ".*/gstreamer1\.0-plugins-base_1\.20.*\.bbappend$"
+BBMASK += ".*/gstreamer1\.0-plugins-base_1\.22.*\.bbappend$"
+BBMASK += ".*/gstreamer1\.0-plugins-base_1\.24.*\.bbappend$"
+
+# Plugins Good
+BBMASK += ".*/gstreamer1\.0-plugins-good_1\.14\.4\.bbappend$"
+BBMASK += ".*/gstreamer1\.0-plugins-good_1\.16.*\.bbappend$"
+BBMASK += ".*/gstreamer1\.0-plugins-good_1\.20.*\.bbappend$"
+BBMASK += ".*/gstreamer1\.0-plugins-good_1\.22.*\.bbappend$"
+BBMASK += ".*/gstreamer1\.0-plugins-good_1\.24.*\.bbappend$"
+
+# Plugins Bad
+BBMASK += ".*/gstreamer1\.0-plugins-bad_1\.14\.4\.bbappend$"
+BBMASK += ".*/gstreamer1\.0-plugins-bad_1\.16.*\.bbappend$"
+BBMASK += ".*/gstreamer1\.0-plugins-bad_1\.20.*\.bbappend$"
+BBMASK += ".*/gstreamer1\.0-plugins-bad_1\.22.*\.bbappend$"
+BBMASK += ".*/gstreamer1\.0-plugins-bad_1\.24.*\.bbappend$"
+
+# Other obsolete append targets
+BBMASK += ".*/gstreamer1\.0-libav_.*\.bbappend$"
+BBMASK += ".*/gstreamer1\.0-omx_.*\.bbappend$"
+BBMASK += ".*/gstreamer1\.0-plugins-ugly_.*\.bbappend$"
+BBMASK += ".*/gstreamer1\.0-rtsp-server_.*\.bbappend$"
+BBMASK += ".*/gstreamer1\.0-vaapi_.*\.bbappend$"
+BBMASK += ".*/mpeg2dec_0\.5\.1\.bbappend$"
+
+BBMASK += ".*/gstreamer1.0-plugins-qti-oss-heifmux.bb"
+
