@@ -325,6 +325,7 @@ BBMASK += ".*/meta-qti-matter/.*\.bb(append)?$"
 BBMASK += ".*/meta-qti-ml/.*\.bb(append)?$"
 BBMASK += ".*/meta-qti-ml-prop/.*\.bb(append)?$"
 #BBMASK += ".*/meta-qti-mmframeworks-prop/.*\.bb(append)?$"
+BBMASK += ".*/meta-qti-mmframeworks-prop/.*/synx-test\.bb$"
 # Keep meta-qti-perf-prop enabled for packagegroup-qti-perf and perf-hal.
 BBMASK += ".*/meta-qti-psdk-core/.*\.bb(append)?$"
 BBMASK += ".*/meta-qti-psdk-core-internal/.*\.bb(append)?$"
