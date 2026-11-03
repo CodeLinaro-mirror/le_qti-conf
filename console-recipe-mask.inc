@@ -525,3 +525,4 @@ BBMASK += ".*/mpeg2dec_0\.5\.1\.bbappend$"
 
 BBMASK += ".*/gstreamer1.0-plugins-qti-oss-heifmux.bb"
 
+BBMASK += "meta-qti-bsp-prop/recipes-sensors-internal/sensors/sensors-internal-qti_6.0.bb"
